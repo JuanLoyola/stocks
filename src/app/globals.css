@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ------------------------------------------------------------------ */
+/* Ambient background blobs — slow drifting gradients.                */
+/* Keyframes live here (not as Tailwind utilities) because the motion  */
+/* is purely decorative and easier to tune in one place.              */
+/* ------------------------------------------------------------------ */
+
+@keyframes blob-drift-a {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate(14rem, 8rem) scale(1.25) rotate(40deg);
+  }
+  66% {
+    transform: translate(-10rem, 5rem) scale(0.9) rotate(-25deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes blob-drift-b {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  40% {
+    transform: translate(-12rem, -10rem) scale(1.3) rotate(-45deg);
+  }
+  75% {
+    transform: translate(8rem, -4rem) scale(0.92) rotate(30deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+}
+
+@keyframes blob-drift-c {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(10rem, -12rem) scale(1.4) rotate(60deg);
+  }
+  100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+}
+
+.blob-a {
+  animation: blob-drift-a 18s ease-in-out infinite;
+}
+.blob-b {
+  animation: blob-drift-b 22s ease-in-out infinite;
+}
+.blob-c {
+  animation: blob-drift-c 15s ease-in-out infinite;
+}
+
+/* Respect users who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .blob-a,
+  .blob-b,
+  .blob-c {
+    animation: none;
+  }
+}
+
+/* Shimmer sweeping across skeleton bars. */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05) 25%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.05) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
